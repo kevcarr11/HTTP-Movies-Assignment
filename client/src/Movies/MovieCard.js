@@ -1,6 +1,4 @@
 import React from 'react';
-import { Route } from "react-router-dom";
-import EditMovie from "./EditMovie"
 
 const MovieCard = props => {
   const { title, director, metascore, stars } = props.movie;
@@ -22,8 +20,6 @@ const MovieCard = props => {
           </div>
         ))}
       </div>
-
-      <Route path="/update-movie/:id" component={EditMovie} />
     </>
   );
 };
