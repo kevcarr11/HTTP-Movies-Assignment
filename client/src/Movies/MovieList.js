@@ -19,19 +19,26 @@ export default class MovieList extends Component {
 
   render() {
     return (
-      <div className="movie-list">
-        {this.state.movies.map(movie => (
-          <MovieDetails key={movie.id} movie={movie} />
-        ))}
-      </div>
+      <>
+        <div className="movie-list">
+          {this.state.movies.map(movie => (
+            <MovieDetails key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </>
     );
   }
 }
 
 function MovieDetails({ movie }) {
   return (
-    <Link to={`/movies/${movie.id}`}>
-      <MovieCard movie={movie} />
-    </Link>
+    <>
+      <Link to={`/movies/${movie.id}`}>
+        <MovieCard movie={movie} />
+      </Link>
+      <Link to={`/update-movie/${movie.id}`}>
+        Edit
+      </Link>
+    </>
   );
 }

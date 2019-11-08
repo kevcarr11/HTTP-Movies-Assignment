@@ -13,7 +13,7 @@ function EditMovie(props) {
   useEffect(() => {
     axios.get(`http://localhost:5000/api/movies/${props.match.params.id}`)
       .then(res => {
-        console.log(res.data)
+        setMovie(res.data)
       })
       .catch(err => {
         console.log(err)
@@ -21,13 +21,34 @@ function EditMovie(props) {
   }, [props.match.params.id])
 
   const handleChange = (event) => {
+    setMovie({
+      ...movie,
+      [event.target.name]: event.target.value,
+    })
+  }
 
+  const handleStars = (event) => {
+    setMovie({
+      ...movie,
+      [event.target.name]: [event.target.value]
+    })
+
+    
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+    .then(res => {
+      props.history.push("/")
+    })
+    .catch(err => console.log(err))
   }
   return (
     <div>
       <h1>Update Movie</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"
@@ -54,9 +75,9 @@ function EditMovie(props) {
           <input
           type="text"
           name="stars"
-          placeholder="Title"
+          placeholder="Stars"
           value={movie.stars}
-          onChange={handleChange}
+          onChange={handleStars}
           />
 
           <button type="submit">Save</button>

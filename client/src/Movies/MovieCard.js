@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const MovieCard = props => {
   const { title, director, metascore, stars } = props.movie;
+  const [state, setState] = useState([])
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/movies")
+    .then(res => {
+      setState(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },[])
+
   return (
     <>
       <div className="movie-card">
@@ -20,6 +32,7 @@ const MovieCard = props => {
           </div>
         ))}
       </div>
+      
     </>
   );
 };
